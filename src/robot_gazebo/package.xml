@@ -3,8 +3,8 @@
 <package format="3">
   <name>robot_gazebo</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="ton@email.com">peko</maintainer>
+  <description>Simulation Gazebo, SLAM, navigation Nav2 et patrouille du robot mobile</description>
+  <maintainer email="284374573+pekoemmanuel@users.noreply.github.com">peko</maintainer>
   <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>

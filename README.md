@@ -3,7 +3,6 @@
 Robot mobile à entraînement différentiel simulé : cartographie SLAM, localisation et navigation autonome avec Nav2, patrouille par points de passage.
 *Simulated differential-drive robot: SLAM mapping, localization and autonomous navigation with Nav2, waypoint patrol.*
 
-![Démonstration](docs/patrouille.gif)
 
 ## Fonctionnalités
 - Description du robot en URDF/Xacro (châssis, 2 roues motrices, 2 roues folles, lidar 2D)
@@ -14,7 +13,8 @@ Robot mobile à entraînement différentiel simulé : cartographie SLAM, localis
 - Patrouille autonome sur 5 points avec `nav2_simple_commander`
 
 ## Résultats
-- Patrouille de 5 points bouclée en environ 78 s de temps simulé, sans récupération
+- Patrouille de 5 points bouclée en 46 s de temps simulé (environ 54 s en temps réel), sans échec
+- Nav2 réglé pour un processeur modeste : contrôleur MPPI à 10 Hz avec 500 trajectoires, nouvelle tentative automatique après un échec
 - Simulation à environ 86 % du temps réel sur un Intel Core i3-5005U (2 cœurs), 16 Go de RAM
 
 ## Prérequis
@@ -27,7 +27,7 @@ sudo apt install ros-jazzy-desktop ros-jazzy-ros-gz ros-jazzy-navigation2 \
 
 ## Installation
 ```
-git clone https://github.com/[ton-compte]/robot-mobile-ros2.git ~/robot_ws
+git clone https://github.com/pekoemmanuel/robot-mobile-ros2.git ~/robot_ws
 cd ~/robot_ws
 colcon build --symlink-install
 source install/setup.bash
@@ -66,7 +66,7 @@ python3 scripts/patrouille.py --ros-args -p use_sim_time:=true
 - Essai sur un robot réel
 
 ## Auteur
-[Emmanuel PEKO], [www.linkedin.com/in/pekoemmanuel]
+Emmanuel PEKO, [LinkedIn](https://www.linkedin.com/in/pekoemmanuel)
 
 ## Licence
 Apache-2.0

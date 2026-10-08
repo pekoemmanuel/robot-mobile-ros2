@@ -14,8 +14,8 @@ setup(
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='peko',
-    maintainer_email='peko@example.com',
-    description='Premier paquet ROS 2',
+    maintainer_email='284374573+pekoemmanuel@users.noreply.github.com',
+    description='Premiers noeuds ROS 2',
     license='Apache-2.0',
     tests_require=['pytest'],
     entry_points={
