@@ -3,7 +3,7 @@ project(robot_gazebo)
 
 find_package(ament_cmake REQUIRED)
 
-install(DIRECTORY worlds launch config
+install(DIRECTORY worlds launch config maps
   DESTINATION share/${PROJECT_NAME})
 
 ament_package()
