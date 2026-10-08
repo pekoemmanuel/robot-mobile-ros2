@@ -1,0 +1,6 @@
+    entry_points={
+        'console_scripts': [
+            'publisher = mon_premier_pkg.publisher:main', 
+            'subscriber = mon_premier_pkg.subscriber:main',
+        ],
+    },
