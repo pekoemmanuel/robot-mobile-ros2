@@ -12,6 +12,7 @@ POINTS = [
     (-2.5, -0.5, -1.57),
     (0.0, 0.0, 0.0),
 ]
+NB_ESSAIS = 3  # tentatives par point avant d'abandonner
 
 
 def fabriquer_pose(nav, x, y, yaw):
@@ -28,30 +29,34 @@ def fabriquer_pose(nav, x, y, yaw):
 def main():
     rclpy.init()
     nav = BasicNavigator()
-    # Le robot est déjà localisé : on n'attend que la navigation
+    # Le robot est déjà localisé : on attend seulement la navigation
     nav.waitUntilNav2Active(localizer='robot_localization')
     debut = nav.get_clock().now()
 
     try:
         for numero, (x, y, yaw) in enumerate(POINTS, start=1):
-            nav.info(f'Point {numero}/{len(POINTS)} : x={x} y={y}')
-            nav.goToPose(fabriquer_pose(nav, x, y, yaw))
-            while not nav.isTaskComplete():
-                retour = nav.getFeedback()
-                if retour:
-                    reste = retour.distance_remaining
-                    nav.info(f'  distance restante : {reste:.2f} m')
-            resultat = nav.getResult()
-            if resultat == TaskResult.SUCCEEDED:
-                nav.info('  atteint')
-            else:
-                nav.error(f'  échec ou annulation : {resultat}')
+            atteint = False
+            for essai in range(1, NB_ESSAIS + 1):
+                nav.info(f'Point {numero}/{len(POINTS)} : x={x} y={y} '
+                         f'(essai {essai}/{NB_ESSAIS})')
+                nav.goToPose(fabriquer_pose(nav, x, y, yaw))
+                while not nav.isTaskComplete():
+                    pass
+                resultat = nav.getResult()
+                if resultat == TaskResult.SUCCEEDED:
+                    nav.info('  atteint')
+                    atteint = True
+                    break
+                nav.error(f'  échec : {resultat}, nettoyage des cartes de coûts')
+                nav.clearAllCostmaps()
+            if not atteint:
+                nav.error('  point abandonné, fin de la patrouille')
                 break
     except KeyboardInterrupt:
         nav.cancelTask()
+
     duree = (nav.get_clock().now() - debut).nanoseconds / 1e9
     nav.info(f'Durée totale (temps simulé) : {duree:.1f} s')
-
     nav.info('Patrouille terminée')
     rclpy.shutdown()
 
