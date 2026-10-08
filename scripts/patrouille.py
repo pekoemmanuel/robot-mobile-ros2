@@ -30,6 +30,7 @@ def main():
     nav = BasicNavigator()
     # Le robot est déjà localisé : on n'attend que la navigation
     nav.waitUntilNav2Active(localizer='robot_localization')
+    debut = nav.get_clock().now()
 
     try:
         for numero, (x, y, yaw) in enumerate(POINTS, start=1):
@@ -48,6 +49,8 @@ def main():
                 break
     except KeyboardInterrupt:
         nav.cancelTask()
+    duree = (nav.get_clock().now() - debut).nanoseconds / 1e9
+    nav.info(f'Durée totale (temps simulé) : {duree:.1f} s')
 
     nav.info('Patrouille terminée')
     rclpy.shutdown()
