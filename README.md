@@ -3,6 +3,8 @@
 Robot mobile à entraînement différentiel simulé : cartographie SLAM, localisation et navigation autonome avec Nav2, patrouille par points de passage.
 *Simulated differential-drive robot: SLAM mapping, localization and autonomous navigation with Nav2, waypoint patrol.*
 
+![Démonstration de la patrouille](docs/patrouille.gif)
+
 
 ## Fonctionnalités
 - Description du robot en URDF/Xacro (châssis, 2 roues motrices, 2 roues folles, lidar 2D)
